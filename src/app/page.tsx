@@ -3,234 +3,161 @@
 import { useState } from "react";
 
 const services = [
-  ["01", "Renovasi Rumah"],
-  ["02", "Bangun Rumah"],
-  ["03", "Rekonstruksi"],
-  ["04", "Interior & Eksterior"],
+  { number: "01", title: "Renovasi Rumah", description: "Menyegarkan dan menata kembali ruang agar lebih nyaman, fungsional, dan sesuai kebutuhan." },
+  { number: "02", title: "Bangun Rumah", description: "Mewujudkan rumah dari awal dengan proses yang terarah, transparan, dan memperhatikan detail." },
+  { number: "03", title: "Rekonstruksi", description: "Menangani perubahan struktur dan ruang untuk menghidupkan kembali bangunan dengan fungsi yang lebih baik." },
+  { number: "04", title: "Interior & Eksterior", description: "Menyempurnakan karakter rumah melalui detail interior dan tampilan luar yang selaras." },
 ];
 
 const projects = [
-  {
-    number: "01",
-    category: "RESIDENTIAL / RENOVATION",
-    title: "Private Residence",
-  },
-  {
-    number: "02",
-    category: "RESIDENTIAL / CONSTRUCTION",
-    title: "Modern Residence",
-  },
-  {
-    number: "03",
-    category: "INTERIOR",
-    title: "Contemporary Interior",
-  },
+  { number: "01", type: "Renovasi", title: "Private Residence", tone: "from-[#d8d1c7] via-[#b8afa3] to-[#91887e]" },
+  { number: "02", type: "Bangun Rumah", title: "Modern Residence", tone: "from-[#ded8cf] via-[#c2b9ae] to-[#9c9287]" },
+  { number: "03", type: "Interior", title: "Contemporary Interior", tone: "from-[#c9c2b8] via-[#a9a097] to-[#7f776f]" },
+];
+
+const process = [
+  ["01", "Konsultasi", "Memahami kebutuhan, karakter lahan, ruang, dan tujuan proyek."],
+  ["02", "Perencanaan", "Menyusun konsep, kebutuhan pekerjaan, dan arah pengerjaan."],
+  ["03", "Pengerjaan", "Mewujudkan rencana dengan pengawasan proses dan detail pekerjaan."],
+  ["04", "Serah Terima", "Memastikan hasil akhir siap digunakan dan sesuai kesepakatan."],
 ];
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const go = (id: string) => {
-    setMenuOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
+  const closeMenu = () => setMenuOpen(false);
 
   return (
-    <main className="min-h-screen bg-[#f4f2ed] text-[#24231f]">
-      <header className="fixed left-0 top-0 z-50 w-full border-b border-black/10 bg-[#f4f2ed]/90 backdrop-blur-md">
-        <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-5 md:px-8 lg:px-12">
-          <button onClick={() => go("home")} aria-label="LineHouse">
-            <img
-              src="/images/linehouse-logo.png"
-              alt="LineHouse"
-              className="h-9 w-auto"
-            />
-          </button>
-
-          <nav className="hidden items-center gap-8 md:flex">
-            <button onClick={() => go("services")} className="text-sm hover:opacity-60">
-              Services
-            </button>
-            <button onClick={() => go("projects")} className="text-sm hover:opacity-60">
-              Projects
-            </button>
-            <button onClick={() => go("about")} className="text-sm hover:opacity-60">
-              About
-            </button>
-            <button onClick={() => go("contact")} className="text-sm hover:opacity-60">
-              Contact
-            </button>
-          </nav>
-
-          <a
-            href="/login"
-            className="hidden rounded-full bg-[#24231f] px-5 py-2.5 text-sm text-white md:block"
-          >
-            Client Login
+    <main className="min-h-screen overflow-x-hidden bg-[#f6f4ef] text-[#292824]">
+      <header className="sticky top-0 z-50 border-b border-[#292824]/10 bg-[#f6f4ef]/95 backdrop-blur-md">
+        <div className="mx-auto flex h-[72px] max-w-[1320px] items-center justify-between px-5 sm:px-7 lg:h-20 lg:px-10">
+          <a href="#home" onClick={closeMenu} aria-label="LineHouse">
+            <img src="/images/linehouse-logo.png" alt="LineHouse" className="h-8 w-auto sm:h-9" />
           </a>
 
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden"
-            aria-label="Open menu"
-          >
-            <span className="block h-px w-6 bg-[#24231f]" />
-            <span className="mt-1.5 block h-px w-6 bg-[#24231f]" />
+          <nav className="hidden items-center gap-7 lg:flex">
+            <a href="#services" className="text-sm text-[#5f5b55] transition hover:text-[#292824]">Services</a>
+            <a href="#projects" className="text-sm text-[#5f5b55] transition hover:text-[#292824]">Projects</a>
+            <a href="#about" className="text-sm text-[#5f5b55] transition hover:text-[#292824]">About</a>
+            <a href="#contact" className="text-sm text-[#5f5b55] transition hover:text-[#292824]">Contact</a>
+          </nav>
+
+          <a href="#contact" className="hidden rounded-full bg-[#292824] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#4b4842] lg:inline-flex">
+            Konsultasi
+          </a>
+
+          <button type="button" onClick={() => setMenuOpen((open) => !open)} aria-label={menuOpen ? "Tutup menu" : "Buka menu"} aria-expanded={menuOpen} className="flex h-10 w-10 items-center justify-center rounded-full border border-[#292824]/15 lg:hidden">
+            <span className="sr-only">Menu</span>
+            <span className="flex w-5 flex-col gap-1.5">
+              <span className="h-px w-full bg-[#292824]" />
+              <span className="h-px w-3/4 self-end bg-[#292824]" />
+            </span>
           </button>
         </div>
 
         {menuOpen && (
-          <div className="border-t border-black/10 bg-[#f4f2ed] px-5 py-6 md:hidden">
-            <div className="flex flex-col gap-5 text-lg">
-              <button onClick={() => go("services")} className="text-left">
-                Services
-              </button>
-              <button onClick={() => go("projects")} className="text-left">
-                Projects
-              </button>
-              <button onClick={() => go("about")} className="text-left">
-                About
-              </button>
-              <button onClick={() => go("contact")} className="text-left">
-                Contact
-              </button>
-              <a href="/login">Client Login →</a>
-            </div>
+          <div className="border-t border-[#292824]/10 bg-[#f6f4ef] px-5 py-5 lg:hidden">
+            <nav className="mx-auto flex max-w-[1320px] flex-col">
+              {[
+                ["Services", "#services"],
+                ["Projects", "#projects"],
+                ["About", "#about"],
+                ["Contact", "#contact"],
+              ].map(([label, href]) => (
+                <a key={href} href={href} onClick={closeMenu} className="border-b border-[#292824]/10 py-4 text-lg">
+                  {label}
+                </a>
+              ))}
+            </nav>
           </div>
         )}
       </header>
 
-      <section id="home" className="px-5 pb-20 pt-32 md:px-8 lg:px-12 lg:pb-28 lg:pt-40">
-        <div className="mx-auto max-w-[1440px]">
-          <div className="max-w-[1100px]">
-            <p className="mb-8 text-xs uppercase tracking-[0.28em] text-[#8b7664]">
-              LineHouse / Construction & Renovation
-            </p>
+      <section id="home" className="scroll-mt-20">
+        <div className="mx-auto max-w-[1320px] px-5 pb-16 pt-16 sm:px-7 sm:pt-20 md:pb-20 lg:px-10 lg:pb-28 lg:pt-24">
+          <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-16">
+            <div>
+              <p className="mb-6 text-[11px] font-medium uppercase tracking-[0.24em] text-[#8b7664] sm:text-xs">LineHouse / Construction & Renovation</p>
+              <h1 className="max-w-4xl text-[clamp(3.25rem,12vw,8.75rem)] font-medium leading-[0.9] tracking-[-0.065em]">
+                Ruang yang
+                <br />
+                <span className="text-[#8b7664]">punya makna.</span>
+              </h1>
+            </div>
 
-            <h1 className="text-[15vw] font-medium leading-[0.82] tracking-[-0.075em] md:text-[11vw] lg:text-[9.5vw]">
-              Spaces
-              <br />
-              <span className="ml-[8vw]">with</span>
-              <br />
-              intention.
-            </h1>
-
-            <div className="mt-12 grid gap-8 md:grid-cols-[1fr_320px] md:items-end">
-              <p className="max-w-xl text-lg leading-8 text-[#6f6b64] md:text-xl">
-                Kami membangun dan merenovasi rumah dengan pendekatan yang
-                sederhana, terukur, dan berorientasi pada kualitas.
+            <div className="max-w-xl lg:pb-2">
+              <p className="text-[17px] leading-7 text-[#66615a] sm:text-lg sm:leading-8">
+                LineHouse membantu membangun, merenovasi, dan menyempurnakan rumah dengan proses yang jelas serta perhatian pada setiap detail.
               </p>
-
-              <button
-                onClick={() => go("projects")}
-                className="group flex items-center gap-4 text-sm"
-              >
-                <span className="flex h-12 w-12 items-center justify-center rounded-full border border-black/20 transition group-hover:bg-[#24231f] group-hover:text-white">
-                  ↓
-                </span>
-                Explore our work
-              </button>
+              <div className="mt-7 flex flex-wrap items-center gap-3">
+                <a href="#projects" className="rounded-full bg-[#292824] px-6 py-3.5 text-sm font-medium text-white transition hover:bg-[#4b4842]">Lihat proyek</a>
+                <a href="#services" className="rounded-full border border-[#292824]/20 px-6 py-3.5 text-sm font-medium transition hover:bg-white">Layanan kami</a>
+              </div>
             </div>
           </div>
 
-          <div className="mt-16 overflow-hidden bg-[#d8d3ca]">
-            <div className="flex min-h-[55vh] items-end bg-[linear-gradient(135deg,#d7d1c8,#a8a095)] p-6 md:p-10 lg:min-h-[68vh]">
-              <div className="flex w-full items-end justify-between gap-6 text-white">
+          <div className="mt-12 sm:mt-16 lg:mt-20">
+            <div className="relative min-h-[52vh] overflow-hidden rounded-[2px] bg-[#c8c1b7] sm:min-h-[58vh] lg:min-h-[70vh]">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#dcd6cd] via-[#b9b0a4] to-[#8e857b]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(255,255,255,0.25),transparent_35%)]" />
+              <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-5 text-white sm:inset-x-8 sm:bottom-8 lg:inset-x-10 lg:bottom-10">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.25em] text-white/70">
-                    Featured Project
-                  </p>
-                  <p className="mt-3 text-3xl font-medium tracking-tight md:text-5xl">
-                    Your next space.
-                  </p>
+                  <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-white/70 sm:text-xs">Featured work</p>
+                  <p className="mt-2 text-xl font-medium tracking-tight sm:text-3xl lg:text-4xl">Rumah yang dirancang untuk hidup.</p>
                 </div>
-                <p className="hidden max-w-xs text-right text-sm leading-6 text-white/70 md:block">
-                  Foto proyek LineHouse dapat ditempatkan di area ini.
-                </p>
+                <span className="hidden text-sm text-white/70 sm:block">LineHouse</span>
               </div>
             </div>
+            <p className="mt-3 text-xs text-[#8b857d]">Area ini dapat menggunakan foto proyek asli LineHouse.</p>
           </div>
         </div>
       </section>
 
-      <section id="services" className="border-t border-black/10 px-5 py-24 md:px-8 lg:px-12 lg:py-32">
-        <div className="mx-auto max-w-[1440px]">
-          <div className="grid gap-10 lg:grid-cols-[1fr_2fr]">
+      <section id="services" className="scroll-mt-20 border-t border-[#292824]/10">
+        <div className="mx-auto max-w-[1320px] px-5 py-20 sm:px-7 sm:py-24 lg:px-10 lg:py-32">
+          <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
             <div>
-              <p className="text-xs uppercase tracking-[0.28em] text-[#8b7664]">
-                01 / Services
-              </p>
-              <h2 className="mt-5 text-4xl font-medium tracking-[-0.04em] md:text-6xl">
-                What we do.
-              </h2>
+              <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-[#8b7664] sm:text-xs">01 / Services</p>
+              <h2 className="mt-4 text-4xl font-medium tracking-[-0.045em] sm:text-5xl lg:text-6xl">Apa yang<br />kami kerjakan.</h2>
+              <p className="mt-6 max-w-sm text-[15px] leading-7 text-[#706b64] sm:text-base">Dari perubahan kecil sampai pembangunan menyeluruh, kami menyesuaikan pendekatan dengan kebutuhan setiap rumah.</p>
             </div>
 
-            <div className="border-t border-black/15">
-              {services.map(([number, title]) => (
-                <div
-                  key={number}
-                  className="group grid grid-cols-[55px_1fr_auto] items-center border-b border-black/15 py-6 md:grid-cols-[80px_1fr_auto] md:py-8"
-                >
-                  <span className="text-sm text-[#8b7664]">{number}</span>
-                  <span className="text-xl font-medium md:text-3xl">
-                    {title}
-                  </span>
-                  <span className="text-xl transition-transform group-hover:translate-x-2">
-                    ↗
-                  </span>
-                </div>
+            <div className="border-t border-[#292824]/15">
+              {services.map((service) => (
+                <article key={service.number} className="grid gap-3 border-b border-[#292824]/15 py-6 sm:grid-cols-[60px_1fr] sm:gap-6 sm:py-8">
+                  <span className="text-xs font-medium text-[#9a7b65]">{service.number}</span>
+                  <div>
+                    <h3 className="text-xl font-medium tracking-[-0.02em] sm:text-2xl">{service.title}</h3>
+                    <p className="mt-2 max-w-2xl text-[15px] leading-6 text-[#706b64] sm:text-base sm:leading-7">{service.description}</p>
+                  </div>
+                </article>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section id="projects" className="bg-[#e8e4dc] px-5 py-24 md:px-8 lg:px-12 lg:py-32">
-        <div className="mx-auto max-w-[1440px]">
-          <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+      <section id="projects" className="scroll-mt-20 bg-[#eae6df]">
+        <div className="mx-auto max-w-[1320px] px-5 py-20 sm:px-7 sm:py-24 lg:px-10 lg:py-32">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs uppercase tracking-[0.28em] text-[#8b7664]">
-                02 / Selected Projects
-              </p>
-              <h2 className="mt-5 text-4xl font-medium tracking-[-0.04em] md:text-6xl">
-                Built for living.
-              </h2>
+              <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-[#8b7664] sm:text-xs">02 / Selected Projects</p>
+              <h2 className="mt-4 text-4xl font-medium tracking-[-0.045em] sm:text-5xl lg:text-6xl">Beberapa karya.</h2>
             </div>
-            <p className="max-w-md text-[#6f6b64]">
-              Beberapa contoh pekerjaan LineHouse. Foto asli proyek dapat
-              menggantikan placeholder ini kapan saja.
-            </p>
+            <p className="max-w-md text-[15px] leading-7 text-[#706b64] sm:text-base">Tampilkan proyek terbaik LineHouse di sini. Foto dan detail proyek dapat ditambahkan tanpa mengubah struktur halaman.</p>
           </div>
 
-          <div className="mt-16 space-y-16">
+          <div className="mt-12 grid gap-10 md:grid-cols-2 lg:mt-16 lg:grid-cols-12">
             {projects.map((project, index) => (
-              <article
-                key={project.number}
-                className={index === 1 ? "md:ml-[18%] md:max-w-[70%]" : ""}
-              >
-                <div className="group overflow-hidden bg-[#c9c3ba]">
-                  <div
-                    className={
-                      "aspect-[16/9] transition duration-700 group-hover:scale-[1.02] " +
-                      (index === 0
-                        ? "bg-[linear-gradient(135deg,#c5bdb3,#948a80)]"
-                        : index === 1
-                          ? "bg-[linear-gradient(135deg,#d1cbc2,#aaa096)]"
-                          : "bg-[linear-gradient(135deg,#b5aea4,#817a72)]")
-                    }
-                  />
+              <article key={project.number} className={index === 0 ? "md:col-span-2 lg:col-span-7" : index === 1 ? "lg:col-span-5 lg:pt-24" : "md:col-span-2 lg:col-span-6 lg:col-start-4 lg:pt-10"}>
+                <div className="group overflow-hidden bg-[#c8c1b7]">
+                  <div className={"aspect-[4/3] bg-gradient-to-br " + project.tone + " transition duration-700 group-hover:scale-[1.02]"} />
                 </div>
-
-                <div className="mt-5 flex justify-between gap-6">
+                <div className="mt-4 flex items-start justify-between gap-5">
                   <div>
-                    <p className="text-xs uppercase tracking-[0.18em] text-[#8b7664]">
-                      {project.category}
-                    </p>
-                    <h3 className="mt-2 text-2xl font-medium">{project.title}</h3>
+                    <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-[#8b7664] sm:text-xs">{project.type}</p>
+                    <h3 className="mt-1.5 text-xl font-medium tracking-[-0.02em] sm:text-2xl">{project.title}</h3>
                   </div>
-                  <span className="text-sm text-[#6f6b64]">
-                    {project.number}
-                  </span>
+                  <span className="text-xs text-[#8b857d]">{project.number}</span>
                 </div>
               </article>
             ))}
@@ -238,108 +165,67 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="about" className="px-5 py-24 md:px-8 lg:px-12 lg:py-36">
-        <div className="mx-auto max-w-[1440px]">
-          <p className="text-xs uppercase tracking-[0.28em] text-[#8b7664]">
-            03 / About
-          </p>
-
-          <div className="mt-10 grid gap-12 lg:grid-cols-[1.4fr_1fr]">
-            <h2 className="max-w-5xl text-5xl font-medium leading-[0.95] tracking-[-0.055em] md:text-7xl lg:text-[7vw]">
-              Good architecture
-              <br />
-              starts with
-              <br />
-              <span className="text-[#8b7664]">good intention.</span>
-            </h2>
+      <section id="about" className="scroll-mt-20">
+        <div className="mx-auto max-w-[1320px] px-5 py-20 sm:px-7 sm:py-24 lg:px-10 lg:py-32">
+          <div className="grid gap-12 lg:grid-cols-[1.25fr_0.75fr] lg:gap-24">
+            <div>
+              <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-[#8b7664] sm:text-xs">03 / About LineHouse</p>
+              <h2 className="mt-5 max-w-5xl text-[clamp(2.75rem,7vw,6.5rem)] font-medium leading-[0.94] tracking-[-0.06em]">Rumah bukan hanya<br />tentang bentuk.<br /><span className="text-[#8b7664]">Tapi tentang rasa.</span></h2>
+            </div>
 
             <div className="self-end">
-              <p className="text-lg leading-8 text-[#6f6b64]">
-                LineHouse hadir untuk membantu menciptakan rumah yang nyaman,
-                fungsional, dan memiliki karakter. Dari ide awal hingga
-                pengerjaan, kami menjaga proses tetap jelas dan terarah.
-              </p>
+              <p className="text-[17px] leading-8 text-[#66615a] sm:text-lg">Kami percaya rumah yang baik terasa nyaman sebelum terlihat sempurna. Karena itu, LineHouse mengutamakan keseimbangan antara fungsi, kualitas pengerjaan, dan karakter pemiliknya.</p>
+              <div className="mt-8 grid grid-cols-2 gap-6 border-t border-[#292824]/15 pt-6">
+                <div><p className="text-2xl font-medium tracking-tight">01</p><p className="mt-1 text-sm text-[#706b64]">Jelas dalam proses</p></div>
+                <div><p className="text-2xl font-medium tracking-tight">02</p><p className="mt-1 text-sm text-[#706b64]">Detail dalam hasil</p></div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="contact" className="bg-[#24231f] px-5 py-24 text-[#f4f2ed] md:px-8 lg:px-12 lg:py-36">
-        <div className="mx-auto max-w-[1440px]">
-          <p className="text-xs uppercase tracking-[0.28em] text-[#b9a18e]">
-            04 / Start a project
-          </p>
-
-          <div className="mt-10 grid gap-12 lg:grid-cols-[1.5fr_1fr]">
+      <section className="border-y border-[#292824]/10 bg-[#f0ede7]">
+        <div className="mx-auto max-w-[1320px] px-5 py-20 sm:px-7 sm:py-24 lg:px-10 lg:py-28">
+          <div className="grid gap-12 lg:grid-cols-[0.65fr_1.35fr] lg:gap-20">
             <div>
-              <h2 className="max-w-4xl text-5xl font-medium leading-[0.95] tracking-[-0.05em] md:text-7xl lg:text-[7vw]">
-                Let&apos;s build
-                <br />
-                something
-                <br />
-                <span className="text-[#b9a18e]">meaningful.</span>
-              </h2>
-
-              <a
-                href="https://wa.me/6283829677870"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-10 inline-flex rounded-full bg-[#f4f2ed] px-7 py-4 text-sm font-medium text-[#24231f] transition hover:bg-[#b9a18e]"
-              >
-                Start a conversation →
-              </a>
+              <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-[#8b7664] sm:text-xs">04 / Process</p>
+              <h2 className="mt-4 text-4xl font-medium tracking-[-0.045em] sm:text-5xl">Sederhana.<br />Terarah.</h2>
             </div>
 
-            <div className="self-end space-y-8 text-[#bdb8b0]">
-              <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-[#8f8981]">
-                  Location
-                </p>
-                <p className="mt-2 text-lg text-[#f4f2ed]">
-                  Jawa Barat, Indonesia
-                </p>
-              </div>
-
-              <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-[#8f8981]">
-                  Instagram
-                </p>
-                <a
-                  href="https://instagram.com/linehouse.id"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 block text-lg text-[#f4f2ed] hover:text-[#b9a18e]"
-                >
-                  @linehouse.id
-                </a>
-              </div>
-
-              <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-[#8f8981]">
-                  Client Area
-                </p>
-                <a
-                  href="/login"
-                  className="mt-2 block text-lg text-[#f4f2ed] hover:text-[#b9a18e]"
-                >
-                  Login Dashboard →
-                </a>
-              </div>
+            <div className="grid gap-0 sm:grid-cols-2">
+              {process.map(([number, title, description]) => (
+                <div key={number} className="border-t border-[#292824]/15 py-6 sm:px-5 sm:py-7 sm:[&:nth-child(odd)]:pl-0 sm:[&:nth-child(even)]:border-l">
+                  <span className="text-xs text-[#9a7b65]">{number}</span>
+                  <h3 className="mt-4 text-xl font-medium">{title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#706b64]">{description}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      <footer className="bg-[#24231f] px-5 pb-8 md:px-8 lg:px-12">
-        <div className="mx-auto flex max-w-[1440px] flex-col gap-5 border-t border-white/10 pt-7 md:flex-row md:items-center md:justify-between">
-          <img
-            src="/images/linehouse-logo.png"
-            alt="LineHouse"
-            className="h-8 w-auto brightness-0 invert"
-          />
-          <p className="text-xs text-[#77736d]">
-            © {new Date().getFullYear()} LineHouse. All rights reserved.
-          </p>
+      <section id="contact" className="scroll-mt-20 bg-[#292824] text-[#f6f4ef]">
+        <div className="mx-auto max-w-[1320px] px-5 py-20 sm:px-7 sm:py-24 lg:px-10 lg:py-32">
+          <div className="grid gap-12 lg:grid-cols-[1.25fr_0.75fr] lg:items-end lg:gap-20">
+            <div>
+              <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-[#b9a18e] sm:text-xs">05 / Start a project</p>
+              <h2 className="mt-5 max-w-4xl text-[clamp(3rem,7vw,6.5rem)] font-medium leading-[0.92] tracking-[-0.06em]">Punya rencana<br />untuk rumahmu?</h2>
+              <a href="https://wa.me/6283829677870" target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex rounded-full bg-[#f6f4ef] px-6 py-3.5 text-sm font-medium text-[#292824] transition hover:bg-[#b9a18e]">Konsultasi via WhatsApp →</a>
+            </div>
+
+            <div className="space-y-7 border-t border-white/15 pt-7 lg:border-t-0 lg:pt-0">
+              <div><p className="text-[10px] uppercase tracking-[0.2em] text-white/45 sm:text-xs">Location</p><p className="mt-2 text-base text-white/85">Jawa Barat, Indonesia</p></div>
+              <div><p className="text-[10px] uppercase tracking-[0.2em] text-white/45 sm:text-xs">Instagram</p><a href="https://instagram.com/linehouse.id" target="_blank" rel="noopener noreferrer" className="mt-2 block text-base text-white/85 hover:text-[#b9a18e]">@linehouse.id</a></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="bg-[#292824] px-5 pb-8 text-white/45 sm:px-7 lg:px-10">
+        <div className="mx-auto flex max-w-[1320px] flex-col gap-5 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <img src="/images/linehouse-logo.png" alt="LineHouse" className="h-7 w-auto brightness-0 invert" />
+          <p className="text-xs">© {new Date().getFullYear()} LineHouse. Construction & Renovation.</p>
         </div>
       </footer>
     </main>
