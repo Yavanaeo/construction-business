@@ -2,11 +2,15 @@
   "name": "construction-business",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "db:migrate": "tsx src/lib/migrate.ts",
+    "db:seed": "tsx src/lib/seed.ts",
+    "db:setup": "npm run db:migrate && npm run db:seed"
   },
   "dependencies": {
     "bcryptjs": "3.0.3",
@@ -25,7 +29,9 @@
     "@types/react-dom": "19.3.0",
     "eslint": "9.39.5",
     "eslint-config-next": "16.3.5",
+    "eslint-plugin-next": "^0.0.0",
     "tailwindcss": "4.3.3",
+    "tsx": "^4.23.15",
     "typescript": "5.9.3"
   }
 }

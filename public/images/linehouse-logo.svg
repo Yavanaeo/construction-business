@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 56" aria-label="LineHouse">
+  <defs>
+    <style>
+      .cls-1 { font-family: "Playfair Display", Georgia, serif; font-weight: 600; font-size: 30px; letter-spacing: -0.02em; fill: #171916; }
+      .cls-2 { font-family: "Playfair Display", Georgia, serif; font-weight: 500; font-size: 30px; letter-spacing: -0.02em; fill: #343830; }
+    </style>
+  </defs>
+  <text x="0" y="42" class="cls-1">Line</text>
+  <text x="102" y="42" class="cls-2">House</text>
+</svg>
